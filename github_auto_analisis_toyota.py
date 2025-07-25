@@ -23,8 +23,8 @@ from google.oauth2.service_account import Credentials
 
 """### **SETUP GOOGLE SHEETS**"""
 
-with open("service_account.json") as f:
-    SERVICE_DICT = json.load(f)
+SERVICE_ACCOUNT = os.environ["GOOGLE_CREDENTIALS_JSON"]
+SERVICE_DICT = json.loads(SERVICE_ACCOUNT)
 
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
