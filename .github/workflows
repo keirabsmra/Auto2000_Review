@@ -1,0 +1,27 @@
+name: Auto Run Review Analysis 
+
+on:
+  workflow_dispatch:  
+
+jobs:
+  run-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install pandas numpy scikit-learn gdown gspread oauth2client Sastrawi emoji joblib xgboost
+
+    - name: Run Python script
+      run: |
+        python github_auto_analisis_toyota.py
+      env:
+        GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
