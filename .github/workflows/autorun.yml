@@ -18,7 +18,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pandas numpy scikit-learn gdown gspread oauth2client Sastrawi emoji joblib xgboost
+        pip install pandas numpy scikit-learn gdown gspread oauth2client Sastrawi emoji joblib xgboost gspread-formatting
 
     - name: Run Python script
       run: |
