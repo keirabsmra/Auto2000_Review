@@ -562,8 +562,4 @@ sheet_out.clear()
 df_export_str = df_export.astype(str)
 # Hapus tanda ' (apostrof) jika ada di awal value
 df_export_str = df_export_str.applymap(lambda x: x[1:] if isinstance(x, str) and x.startswith("'") else x)
-
-from gspread_formatting import *
-# Set semua kolom jadi format 'Plain Text'
-fmt = cellFormat(numberFormat=NumberFormat(type='TEXT'))
-format_cell_range(sheet_out, 'A1:Z1000', fmt)
+sheet_out.update([df_export_str.columns.tolist()] + df_export_str.values.tolist())
