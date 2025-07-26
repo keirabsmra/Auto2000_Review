@@ -18,8 +18,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pandas numpy scikit-learn gdown gspread oauth2client Sastrawi emoji joblib xgboost gspread-formatting
-
+        pip install pandas numpy scikit-learn gdown gspread oauth2client Sastrawi emoji joblib xgboost
     - name: Run Python script
       run: |
         python github_auto_analisis_toyota.py
