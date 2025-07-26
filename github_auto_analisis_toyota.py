@@ -558,7 +558,12 @@ try:
 except:
     sheet_out = spreadsheet.add_worksheet(title="Hasil Analisis", rows=1000, cols=20)
 
+def clean_number_string(x):
+    if pd.isna(x):
+        return ''
+    x = str(x).strip()
+    return x if not x.isdigit() else x  # tidak ubah apa pun, biarkan tampil normal
+
 sheet_out.clear()
-df_export_str = df_export.astype(str)
-df_export_str = df_export_str.applymap(lambda x: x[1:] if isinstance(x, str) and x.startswith("'") else x)
+df_export_str = df_export.applymap(clean_number_string)
 sheet_out.update([df_export_str.columns.tolist()] + df_export_str.values.tolist())
