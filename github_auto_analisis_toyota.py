@@ -560,6 +560,5 @@ except:
 
 sheet_out.clear()
 df_export_str = df_export.astype(str)
-# Hapus tanda ' (apostrof) jika ada di awal value
-df_export_str = df_export_str.applymap(lambda x: x[1:] if isinstance(x, str) and x.startswith("'") else x)
+df_export_str = df_export_str.applymap(lambda x: f" {x}" if isinstance(x, str) and x[0].isdigit() else x)
 sheet_out.update([df_export_str.columns.tolist()] + df_export_str.values.tolist())
