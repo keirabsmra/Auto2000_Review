@@ -559,6 +559,4 @@ except:
     sheet_out = spreadsheet.add_worksheet(title="Hasil Analisis", rows=1000, cols=20)
 
 sheet_out.clear()
-df_export_str = df_export.astype(str)
-df_export_str = df_export_str.applymap(lambda x: x[1:] if isinstance(x, str) and x.startswith("'") else x)
-sheet_out.update([df_export_str.columns.tolist()] + df_export_str.values.tolist())
+sheet_out.update([df_export_upload.columns.tolist()] + df_export_upload.values.tolist())
