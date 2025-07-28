@@ -545,9 +545,14 @@ df_export['review_star'] = df_export['review_star'].astype('Int64')
 df_export['review_date'] = pd.to_datetime(df_export['review_date'], errors='coerce')
 df_export['review_date'] = df_export['review_date'].dt.tz_localize(None)
 
-# Ubah datetime menjadi string agar aman untuk Google Sheets/Excel
-for col in df_export.select_dtypes(include=['datetime64[ns]']).columns:
-    df_export[col] = df_export[col].astype(str)
+# Hanya ubah kolom datetime ke string agar bisa dibaca di Sheets
+df_export_upload = df_export.copy()
+datetime_cols = df_export_upload.select_dtypes(include=['datetime64[ns]']).columns
+for col in datetime_cols:
+    df_export_upload[col] = df_export_upload[col].astype(str)
+
+# Hapus baris yang ada NA (termasuk pd.NA, NaT, atau NaN)
+df_export_upload = df_export_upload.dropna().copy()
 
 # === Simpan ke Google Sheets ===
 spreadsheet_key = "1AKrwoAq7K-zXe-9L2VHB3j_d529Ot62VeNrDoykbcnQ"
