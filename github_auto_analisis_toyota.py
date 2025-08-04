@@ -565,3 +565,28 @@ except:
 
 sheet_out.clear()
 sheet_out.update([df_export_upload.columns.tolist()] + df_export_upload.values.tolist())
+
+df_flat = df_clean[['review_id', 'aspect_1', 'aspect_2', 'aspect_3']].copy()
+
+df_flat = pd.melt(
+    df_flat,
+    id_vars=['review_id'],
+    value_vars=['aspect_1', 'aspect_2', 'aspect_3'],
+    var_name='aspect_number',
+    value_name='aspek_flaten'
+)
+
+df_flat = df_flat[['review_id', 'aspek_flaten']]
+
+# Hapus duplikat & aspek kosong/Other
+df_flat.drop_duplicates(subset=['review_id', 'aspek_flaten'], inplace=True)
+df_flat = df_flat[df_flat['aspek_flaten'].notna() & (df_flat['aspek_flaten'] != 'Other')]
+
+# Simpan ke Sheet "aspek_flaten"
+try:
+    sheet_flat = spreadsheet.worksheet("aspek_flaten")
+except:
+    sheet_flat = spreadsheet.add_worksheet(title="aspek_flaten", rows=10000, cols=10)
+
+sheet_flat.clear()
+sheet_flat.update([df_flat.columns.tolist()] + df_flat.values.tolist())
