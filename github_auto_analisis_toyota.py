@@ -555,13 +555,13 @@ for col in datetime_cols:
 df_export_upload = df_export_upload.dropna().copy()
 
 # === Simpan ke Google Sheets ===
-spreadsheet_key = "1AKrwoAq7K-zXe-9L2VHB3j_d529Ot62VeNrDoykbcnQ"
+spreadsheet_key = "1HejBxp9ZB82lD7lAhETVCS5pK5nomXg-n__wGhB5snA"
 spreadsheet = gc.open_by_key(spreadsheet_key)
 
 try:
-    sheet_out = spreadsheet.worksheet("Hasil Analisis")
+    sheet_out = spreadsheet.worksheet("hasil")
 except:
-    sheet_out = spreadsheet.add_worksheet(title="Hasil Analisis", rows=1000, cols=20)
+    sheet_out = spreadsheet.add_worksheet(title="hasil", rows=1000, cols=20)
 
 sheet_out.clear()
 sheet_out.update([df_export_upload.columns.tolist()] + df_export_upload.values.tolist())
